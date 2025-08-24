@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<h1>All Posts</h1>
+<div class="main d-flex justify-content-between">
+    <div class="posts">
+        {% for post in posts %}
+            <b>Title:</b> {{ post.title }} <br>
+            <b>Discription:</b> {{ post.discription }} 
+            
+            <div class="action-btns mt-2">
+                <a class="a_bottom btn btn-info btn-sm py-1 mb-2 me-1" href="{% url 'update_post' post.id %}">Update</a>
+                <a class="a_bottom btn btn-danger btn-sm py-1 mb-2" href="{% url 'delete_post' post.id %}">Delete</a>
+            </div>
+             
+        {% endfor %}
+    </div>
+    <div class="fruits">
+        {% for fruit in fruits %}
+            <b>Title:</b> {{ fruit.title }} <br>
+            <b>Discription:</b> {{ fruit.description }} 
+
+            <div class="action-btns mt-2">
+                <a class="a_bottom btn btn-info btn-sm py-1 mb-2 me-1" href="{% url 'update_fruit' fruit.id %}">Update</a>
+                <a class="a_bottom btn btn-danger btn-sm py-1 mb-2" href="{% url 'delete_fruit' fruit.id %}">Delete</a>
+            </div>
+
+        {% endfor %}
+    </div>
+    <div class="commands">
+        {% for command in commands %}
+            <b>Title:</b> {{ command.title }} <br>
+            <b>Discription:</b> {{ command.description }} 
+
+            <div class="action-btns mt-2">
+                <a class="a_bottom btn btn-info btn-sm py-1 mb-2 me-1" href="{% url 'update_command' command.id %}">Update</a>
+                <a class="a_bottom btn btn-danger btn-sm py-1 mb-2" href="{% url 'delete_command' command.id %}">Delete</a>
+            </div>
+            
+        {% endfor %}
+    </div>
+</div> 
+{% endblock %}

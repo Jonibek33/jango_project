@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% extends 'form_snippets' %}
+
+{% block title %}
+<title>Fruits</title>
+{% endblock %}
+<ul>
+    {% for post in posts %}
+    <h1>Fruits</h1>
+
+        <li>
+            <b>Title:</b> {{ post.title }} <br>
+            <b>Discription:</b> {{ post.discription }}
+            <br>
+            <a href="{% url 'update_fruit' %}">Update</a>
+            <a href="{% url 'delete_fruit' %}">Delete</a>
+            <hr>
+        </li>
+    {% endfor %}
+</ul>
+{% block content %}
