@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Fruits
 from .forms import FruitsForm
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def fruits(request):
@@ -11,6 +13,7 @@ def fruits(request):
     }
     return render(request, "home.html", context)
 
+@login_required
 def create_fruit(request):
     if request.method == "POST":
         form = FruitsForm(request.POST)
@@ -23,21 +26,26 @@ def create_fruit(request):
     }
     return render(request, "create_fruit.html", context)
 
+@login_required
 def update_fruit(request, pk: int):
     fruit = Fruits.objects.get(pk=pk)
+    if request.user.id == fruit.author.id:
+        if request.method == "POST":
+            form = FruitsForm(request.POST, instance=fruit)
+            if form.is_valid():
+                form.save()
+            return redirect("home")
 
-    if request.method == "POST":
-        form = FruitsForm(request.POST, instance=fruit)
-        if form.is_valid():
-            form.save()
+        context = {
+            "form": FruitsForm(instance=fruit),
+        }
+        return render(request, "update_fruit.html", context)
+    else:
         return redirect("home")
 
-    context = {
-        "form": FruitsForm(instance=fruit),
-    }
-    return render(request, "update_fruit.html", context)
-
+@login_required
 def delete_fruit(request, pk: int):
     fruit = Fruits.objects.get(pk=pk)
-    fruit.delete()
+    if request.user.id == fruit.author.id:
+        fruit.delete()
     return redirect('home')

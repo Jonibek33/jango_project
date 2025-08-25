@@ -32,7 +32,7 @@ from colors.views import create_color, update_color, delete_color
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    
+    path('accounts/', include('allauth.urls')),
     
     path("colors", colors, name="colors"),
     path("cars", cars, name="cars"),
