@@ -1,0 +1,39 @@
+{% load django_bootstrap5 %}
+
+<div class="card" style="width: 18rem;">
+
+    {% if request.user.is_authenticated %}
+    {% for post in posts %}
+
+    <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.discription}}</p>
+    </div>
+
+    <div class="action-btns mt-2 card-footer d-flex justify-content-between align-items-center gap-3">
+        <a href="{% url 'profile' post.author.id %}" class="text-muted d-flex">
+            <img src="{{ post.author.profile.image.url }}" alt="" class="rounded-circle me-2" width="25" height="25">
+            {{ post.author.username }}
+        </a>
+        {% if request.user.id == post.author.id %}
+        <div class="d-flex justify-content-end gap-1">
+            <a class="btn btn-sm btn-outline-info" href="{% url 'update_post' post.id %}">Update</a>
+            <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_post' post.id %}">Delete</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    {% endfor %}
+    {% endif %}
+</div>
+
+<style>
+    .card-text {
+        /* truncete text up-to 4 lines */
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>

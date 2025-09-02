@@ -4,73 +4,28 @@
 {% block content %}
 
 
+{% include 'pagin.html' with page_obj=page_obj posts=posts %}
+
+{% include 'fruit_pagin.html' with page_obj=page_obj fruits=fruits %}
+
+{% include 'command_pagin.html' with page_obj=page_obj commands=commands %}
+
+
 <h1>All Posts</h1>
 <div class="main d-flex justify-content-between">
     <div class="posts">
-        {% for post in posts %}
-            <b>Title:</b> {{ post.title }} <br>
-            <b>Discription:</b> {{ post.discription }} 
-            
-            <div class="action-btns mt-2">
-                <a href="{% url 'profile' post.author.id %}" class="text-muted">
-                    <b class="me-1">Author:</b>
-                    <img src="{{ post.author.profile.image.url }}" alt="" class="rounded-circle" width="25" height="25">
-                    {{ post.author.username }}
-                </a>
-                <br>
-                {% if request.user.id == post.author.id %}
-                <div>
-                    <a class="a_bottom btn btn-info btn-sm py-1 mb-2 me-1" href="{% url 'update_post' post.id %}">Update</a>
-                    <a class="a_bottom btn btn-danger btn-sm py-1 mb-2" href="{% url 'delete_post' post.id %}">Delete</a>
-                </div>
-                {% endif %}
-            </div>
-             
-        {% endfor %}
+
+
     </div>
     <div class="fruits">
-        {% for fruit in fruits %}
-            <b>Title:</b> {{ fruit.title }} <br>
-            <b>Discription:</b> {{ fruit.description }} 
 
-            <div class="action-btns mt-2">
-                <a href="{% url 'profile' fruit.author.id %}" class="text-muted">
-                    <b class="me-1">Author:</b>
-                    <img src="{{ fruit.author.profile.image.url }}" alt="" class="rounded-circle" width="25" height="25">
-                    {{ fruit.author.username }}
-                </a>
-                <br>
-                {% if request.user.id == fruit.author.id %}
-                <div>
-                    <a class="a_bottom btn btn-info btn-sm py-1 mb-2 me-1" href="{% url 'update_fruit' fruit.id %}">Update</a>
-                    <a class="a_bottom btn btn-danger btn-sm py-1 mb-2" href="{% url 'delete_fruit' fruit.id %}">Delete</a>
-                </div>
-                {% endif %}
-            </div>
+       
 
-        {% endfor %}
     </div>
     <div class="commands">
-        {% for command in commands %}
-            <b>Title:</b> {{ command.title }} <br>
-            <b>Discription:</b> {{ command.description }} 
+        
+        
 
-            <div class="action-btns mt-2">
-                <a href="{% url 'profile' command.author.id %}" class="text-muted">
-                    <b class="me-1">Author:</b>
-                    <img src="{{ command.author.profile.image.url }}" alt="" class="rounded-circle" width="25" height="25">
-                    {{ command.author.username }}
-                </a>
-                <br>
-                {% if request.user.id == command.author.id %}
-                <div>
-                    <a class="a_bottom btn btn-info btn-sm py-1 mb-2 me-1" href="{% url 'update_command' command.id %}">Update</a>
-                    <a class="a_bottom btn btn-danger btn-sm py-1 mb-2" href="{% url 'delete_command' command.id %}">Delete</a>
-                </div>
-                {% endif %}
-            </div>
-            
-        {% endfor %}
     </div>
 </div> 
 {% endblock %}

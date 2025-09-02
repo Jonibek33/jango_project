@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+from django.core.paginator import Paginator
+
 def fruits(request):
     context = {
         "title": "Fruits Page",
@@ -16,9 +18,11 @@ def fruits(request):
 @login_required
 def create_fruit(request):
     if request.method == "POST":
-        form = FruitsForm(request.POST)
+        form = FruitsForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            fruit = form.save(commit=False)
+            fruit.author = request.user
+            fruit.save()
         return redirect("home")
 
     context = {
@@ -31,7 +35,7 @@ def update_fruit(request, pk: int):
     fruit = Fruits.objects.get(pk=pk)
     if request.user.id == fruit.author.id:
         if request.method == "POST":
-            form = FruitsForm(request.POST, instance=fruit)
+            form = FruitsForm(request.POST, request.FILES, instance=fruit)
             if form.is_valid():
                 form.save()
             return redirect("home")

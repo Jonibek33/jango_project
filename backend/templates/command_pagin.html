@@ -1,0 +1,83 @@
+<div class="row g-3">
+    {% for command in cm_page_obj %}
+      <div class="main_div col-md-3">
+        
+        <img src="{{ command.image.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{command.title}}</h5>
+            <p class="card-text">{{command.discription}}</p>
+        </div>
+      
+        <div class="action-btns mt-2 card-footer d-flex justify-content-between align-items-center gap-3">
+            <a href="{% url 'profile' command.author.id %}" class="text-muted d-flex">
+                <img src="{{ command.author.profile.image.url }}" alt="" class="rounded-circle me-2" width="25" height="25">
+                {{ command.author.username }}
+            </a>
+            {% if request.user.id == command.author.id %}
+            <div class="d-flex justify-content-end gap-1">
+                <a class="btn btn-sm btn-outline-info" href="{% url 'update_command' command.id %}">Update</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_command' command.id %}">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+
+      </div>
+    {% empty %}
+      <p>Постов пока нет.</p>
+    {% endfor %}
+  </div>
+  
+  <!-- Пагинация -->
+  <nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if cm_page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page_cm={{ cm_page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">&laquo;</a>
+        </li>
+      {% endif %}
+  
+      {% for num in cm_page_obj.paginator.page_range %}
+        {% if cm_page_obj.number == num %}
+          <li class="page-item active">
+            <a class="page-link" href="#">{{ num }}</a>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page_cm={{ num }}">{{ num }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+  
+      {% if cm_page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page_cm={{ cm_page_obj.next_page_number }}">&raquo;</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">&raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+
+<style>
+
+  .main_div {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+  .card-text {
+        /* truncete text up-to 4 lines */
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>

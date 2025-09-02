@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+from django.core.paginator import Paginator
+
 def commands(request):
     context = {
         'title': 'Commands',
@@ -17,9 +19,11 @@ def commands(request):
 def create_command(request):
 
     if request.method == 'POST':
-        form = CommandsForm(request.POST)
+        form = CommandsForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            command = form.save(commit=False)
+            command.author = request.user
+            command.save()
         return redirect("home")
     
     context = {
@@ -32,7 +36,7 @@ def update_command(request, pk: int):
     command = Commands.objects.get(pk=pk)
     if request.user.id == command.author.id:
         if request.method == 'POST':
-            form = CommandsForm(request.POST, instance=command)
+            form = CommandsForm(request.POST, request.FILES, instance=command)
             if form.is_valid():
                 form.save()
             return redirect("home")
