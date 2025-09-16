@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+<title>Style Shop: Post Detils</title>
+
+{% endblock %}
+
+{% block content %}
+
+<img src="{{ post.image.url }}" class="card-img-top" alt="...">
+<h1>{{ post.title }}</h1>
+<p>{{ post.discription }}</p>
+
+{% endblock %}

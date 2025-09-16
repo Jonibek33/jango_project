@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+<h1>{{ title }}</h1>
+<hr>
+
 <h1>Profile of {{ profile.user.username }}</h1>
 {% if request.user.is_authenticated and profile.user.id == request.user.id %}
     <a href="{% url 'account_logout' %}" class="btn btn-outline-danger mx-1 p-15 float-end">Logout</a>

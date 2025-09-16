@@ -1,0 +1,25 @@
+{% for fruit in fruits %}
+
+<div class="main_div">
+    <div class="card-body">
+        <img src="{{ fruit.image.url }}" class="card-img-top" alt="...">
+        <h5 class="card-title">{{fruit.title}}</h5>
+        <p class="card-text">{{fruit.discription}}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+
+
+<style>
+
+.main_div {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+</style>

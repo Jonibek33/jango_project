@@ -8,17 +8,30 @@
             <p class="card-text">{{post.discription}}</p>
         </div>
       
-        <div class="action-btns mt-2 card-footer d-flex justify-content-between align-items-center gap-3">
+        <div class="action-btns mt-2 card-footer gap-3">
+            {% if post.id in request.session.liked_posts %}
+            <a href="{% url 'like_post' post.id %}" 
+                class="text-muted d-flex align-items-center bg-success rounded-circle p-1" style="width: 27px; height: 27px;">
+              👍
+            </a> 
+            {% else %}
+            <a href="{% url 'like_post' post.id %}" 
+                class="text-muted d-flex align-items-center bg-light rounded-circle p-1" style="width: 27px; height: 27px;">
+              👍
+            </a> 
+            {% endif %}
+
             <a href="{% url 'profile' post.author.id %}" class="text-muted d-flex">
                 <img src="{{ post.author.profile.image.url }}" alt="" class="rounded-circle me-2" width="25" height="25">
                 {{ post.author.username }}
             </a>
-            {% if request.user.id == post.author.id %}
             <div class="d-flex justify-content-end gap-1">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'post_details' post.id %}">Details</a>
+                {% if request.user.id == post.author.id %}
                 <a class="btn btn-sm btn-outline-info" href="{% url 'update_post' post.id %}">Update</a>
                 <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_post' post.id %}">Delete</a>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
 
       </div>

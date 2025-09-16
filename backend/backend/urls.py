@@ -18,22 +18,24 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
-from fruits.views import fruits
-from commands.views import commands
+
 from colors.views import colors
 from cars.views import cars
 from brands.views import brands
 
-from fruits.views import create_fruit, update_fruit, delete_fruit
-from commands.views import create_command, update_command, delete_command
+from posts.views import AboutPageView
+
 from colors.views import create_color, update_color, delete_color
 
+from .views import *
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
     
     path('accounts/', include('allauth.urls')),
-    
+    path('admin/', admin.site.urls),
+
     path("colors", colors, name="colors"),
     path("cars", cars, name="cars"),
     path("brands", brands, name="brands"),
@@ -47,4 +49,14 @@ urlpatterns = [
     path("create_color/", create_color, name='create_color'),
     path("update_color/<int:pk>/", update_color, name='update_color'),
     path("delete_color/<int:pk>/", delete_color, name='delete_color'),
+
+    path("about/", AboutPageView.as_view(), name='about'),
+    path("switch-language/<str:lang>", switch_language, name='switch_language'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += i18n_patterns(
+    # Patterns that need to be translated
+    # path('', include('pages.urls')),
+)

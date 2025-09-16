@@ -28,3 +28,9 @@ class Posts(models.Model):
     class Meta:
         verbose_name = "Post"
         verbose_name_plural = "Posts"
+
+        permissions = [
+            ("can_change_profile", "Can change profile"),
+        ]
+
+    

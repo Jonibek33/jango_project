@@ -1,0 +1,28 @@
+{% for post in posts %}
+
+<div class="main_div">
+    <div class="card-body">
+        <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.discription}}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+{% include 'liked_commands.html' with commands=commands %}
+{% include 'liked_fruits.html' with fruits=fruits %}
+
+
+
+<style>
+
+.main_div {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+</style>

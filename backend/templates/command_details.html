@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+<title>Style Shop: Command Detils</title>
+
+{% endblock %}
+
+{% block content %}
+
+<img src="{{ command.image.url }}" class="card-img-top" alt="...">
+<h1>{{ command.title }}</h1>
+<p>{{ command.description }}</p>
+
+{% endblock %}

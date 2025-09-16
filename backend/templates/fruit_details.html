@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+<title>Style Shop: Fruit Detils</title>
+
+{% endblock %}
+
+{% block content %}
+
+<img src="{{ fruit.image.url }}" class="card-img-top" alt="...">
+<h1>{{ fruit.title }}</h1>
+<p>{{ fruit.description }}</p>
+
+{% endblock %}

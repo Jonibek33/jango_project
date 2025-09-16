@@ -1,10 +1,14 @@
 from django.urls import path
 
-from .views import fruits, create_fruit, update_fruit, delete_fruit
+from .views import *
 
 urlpatterns = [
-    path("fruits", fruits, name="fruits"),
-    path("create_fruit/", create_fruit, name='create_fruit'),
-    path("update_fruit/<int:pk>/", update_fruit, name='update_fruit'),
-    path("delete_fruit/<int:pk>/", delete_fruit, name='delete_fruit'),
+    path("fruits", FruitsListView.as_view(), name="fruits"),
+    path("create_fruit/", CreateFruitView.as_view(), name='create_fruit'),
+    path("update_fruit/<int:pk>/", FruitUpdateView.as_view(), name='update_fruit'),
+    path("delete_fruit/<int:pk>/", FruitDeleteView.as_view(), name='delete_fruit'),
+    path("fruit_details/<int:pk>/", FruitDetailsView.as_view(), name='fruit_details'),
+    path("like_fruit/<int:pk>/", like_fruit, name='like_fruit'),
+
+    path("liked_fruits/", liked_fruits, name='liked_fruits'),
 ]

@@ -1,0 +1,25 @@
+{% for command in commands %}
+
+<div class="main_div">
+    <div class="card-body">
+        <img src="{{ command.image.url }}" class="card-img-top" alt="...">
+        <h5 class="card-title">{{command.title}}</h5>
+        <p class="card-text">{{command.discription}}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+
+
+<style>
+
+.main_div {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+</style>
