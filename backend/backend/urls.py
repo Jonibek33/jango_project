@@ -24,15 +24,20 @@ from django.conf.urls.i18n import i18n_patterns
 from colors.views import colors
 from cars.views import cars
 from brands.views import brands
-
 from posts.views import AboutPageView
-
 from colors.views import create_color, update_color, delete_color
+
+from rest_framework import routers
+
+from posts.api_views import PostsViewSet
+router = routers.DefaultRouter()
+router.register(r'api/posts', PostsViewSet)
 
 from .views import *
 
 urlpatterns = [
-    
+    path('', include(router.urls)),
+    path('api/', include('rest_framework.urls', namespace='rest_framework')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
 

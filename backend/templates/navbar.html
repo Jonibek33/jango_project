@@ -29,7 +29,7 @@
 
         <div class="btns d-flex justify-content-end float-end">
           <div class="dropdown-langs">
-            <a href="#">{{ request.session.current_language }}</a>
+            <a class="dropdown-toggle" href="#">{{ request.session.current_language }}</a>
             <div class="languages">
               <a href="{% url 'switch_language' 'en' %}">en</a>
               <a href="{% url 'switch_language' 'ru' %}">ru</a>
