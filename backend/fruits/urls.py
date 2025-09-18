@@ -1,6 +1,9 @@
 from django.urls import path
-
 from .views import *
+from django.urls import include, path
+
+
+
 
 urlpatterns = [
     path("fruits", FruitsListView.as_view(), name="fruits"),

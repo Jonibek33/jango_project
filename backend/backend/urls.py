@@ -28,10 +28,12 @@ from posts.views import AboutPageView
 from colors.views import create_color, update_color, delete_color
 
 from rest_framework import routers
-
 from posts.api_views import PostsViewSet
+from fruits.api_views import FruitsViewSet
+
 router = routers.DefaultRouter()
 router.register(r'api/posts', PostsViewSet)
+router.register(r'api/fruits', FruitsViewSet)
 
 from .views import *
 
@@ -40,7 +42,13 @@ urlpatterns = [
     path('api/', include('rest_framework.urls', namespace='rest_framework')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
+    path("switch-language/<str:lang>", switch_language, name='switch_language'),
+    
 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += i18n_patterns(
     path("colors", colors, name="colors"),
     path("cars", cars, name="cars"),
     path("brands", brands, name="brands"),
@@ -56,12 +64,4 @@ urlpatterns = [
     path("delete_color/<int:pk>/", delete_color, name='delete_color'),
 
     path("about/", AboutPageView.as_view(), name='about'),
-    path("switch-language/<str:lang>", switch_language, name='switch_language'),
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-urlpatterns += i18n_patterns(
-    # Patterns that need to be translated
-    # path('', include('pages.urls')),
 )
